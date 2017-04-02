@@ -4,9 +4,7 @@ import time
 import cv2
 import numpy as np
 from datetime import datetime
-
-# initialize the camera and grab a reference to the raw camera capture
-
+import logging
 
 CHANNELS = 3
 
@@ -21,6 +19,8 @@ class PiCameraCapture:
             '/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml')
 
     def detect(self, collector, scale_factor, min_neighbors, min_size):
+        logging.info('Starting detection')
+
         with PiCamera(resolution=(self.width, self.height), framerate=self.framerate) as camera:
             stream = np.empty(
                 (self.height * self.width * CHANNELS), dtype=np.uint8)
@@ -38,9 +38,12 @@ class PiCameraCapture:
                     minNeighbors=min_neighbors,
                     minSize=tuple(min_size)
                 )
+                if len(faces) > 1:
+                    logging.debug('Found {} faces', len(faces))
                 data = (int(datetime.utcnow().timestamp() * 1000),
                         {"faces": len(faces)}, "picam")
                 collector.collect(data)
+
                 # Draw a rectangle around the faces
                 # for (x, y, w, h) in faces:
                 #    cv2.rectangle(frame, (x, y), (x + w, y + h),

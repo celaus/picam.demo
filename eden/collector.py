@@ -2,6 +2,7 @@ import json
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 import asyncio
+import logging
 
 
 class StatsCollector:
@@ -20,19 +21,21 @@ class StatsCollector:
         meta = data[2]
         stats = {"timestamp": ts, "data": readings, "meta": meta}
         self.batch.append(stats)
+        logging.debug('Appending {}', stats)
+
         if len(self.batch) >= self.batch_size:
             data = json.dumps(self.batch)
             l = len(data.encode("utf8"))
             self.headers.update({"Content-Length": l})
             req = Request(self.endpoint, data, headers)
             try:
+                logging.info("Sending {} items", len(self.batch))
                 response = urlopen(req)
+                logging.info('Sent!')
             except HTTPError as e:
-                print('The server couldn\'t fulfill the request.')
-                print('Error code: ', e.code)
+                logging.error('Server responded with an error code: ', e.code)
             except URLError as e:
-                print('We failed to reach a server.')
-                print('Reason: ', e.reason)
+                logging.error('URL error: ', e.reason)
 
             self.batch = []
 

@@ -39,7 +39,7 @@ class PiCameraCapture:
                     minSize=tuple(min_size)
                 )
                 if len(faces) > 1:
-                    logging.debug('Found {} faces', len(faces))
+                    logging.debug('Found %d faces', len(faces))
                 data = (int(datetime.utcnow().timestamp() * 1000),
                         {"faces": len(faces)}, "picam")
                 collector.collect(data)

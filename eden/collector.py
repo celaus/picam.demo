@@ -21,7 +21,7 @@ class StatsCollector:
         meta = data[2]
         stats = {"timestamp": ts, "data": readings, "meta": meta}
         self.batch.append(stats)
-        logging.debug('Appending {}', stats)
+        logging.debug('Appending %s', stats)
 
         if len(self.batch) >= self.batch_size:
             data = json.dumps(self.batch)
@@ -29,7 +29,7 @@ class StatsCollector:
             self.headers.update({"Content-Length": l})
             req = Request(self.endpoint, data, headers)
             try:
-                logging.info("Sending {} items", len(self.batch))
+                logging.info("Sending %d items", len(self.batch))
                 response = urlopen(req)
                 logging.info('Sent!')
             except HTTPError as e:

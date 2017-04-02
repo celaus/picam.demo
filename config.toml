@@ -1,6 +1,6 @@
 [camera]
 framerate = 32
-width = 1080
+width = 1088
 height = 720
 
 [haarcascades]

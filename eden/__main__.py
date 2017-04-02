@@ -5,6 +5,7 @@ import toml
 from auth import get_token
 import asyncio
 import logging
+from threading import Thread
 
 
 def capture(config_file_name='config.toml'):
@@ -29,8 +30,10 @@ def capture(config_file_name='config.toml'):
 
     logging.info('Starting event loop')
 
-    loop.run_until_complete(camcap.detect(
-        collector, **config["haarcascades"]))
+    t = Thread(target=lambda: camcap.detect(
+        collector, **config["haarcascades"]), daemon=True)
+    t.start()
+    loop.run_forever()
 
 
 def main():

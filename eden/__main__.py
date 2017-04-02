@@ -15,7 +15,7 @@ def capture(config_file_name='config.toml'):
                       "agent"]["name"], config["agent"]["role"])
     loop = asyncio.get_event_loop()
     collector = StatsCollector(loop=loop, token=token, batch_size=config["server"][
-        "batch_size"], endpoint=config["server"]["endpoint"], agent=config["agent"]["name"])
+        "batch_size"], endpoint=config["server"]["endpoint"])
     camcap = PiCameraCapture(**config["camera"])
     loop.call_later(3, lambda: camcap.detect(
         collector, **config["haarcascades"]))

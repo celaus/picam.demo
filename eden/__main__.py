@@ -27,12 +27,10 @@ def capture(config_file_name='config.toml'):
 
     camcap = PiCameraCapture(**config["camera"])
 
-    loop.call_later(3, lambda: camcap.detect(
-        collector, **config["haarcascades"]))
-
     logging.info('Starting event loop')
 
-    loop.run_forever()
+    loop.run_until_complete(camcap.detect(
+        collector, **config["haarcascades"]))
 
 
 def main():

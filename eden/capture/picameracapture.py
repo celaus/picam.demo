@@ -34,7 +34,7 @@ class PiCameraCapture:
                     gray,
                     scaleFactor=scale_factor,
                     minNeighbors=min_neighbors,
-                    minSize=min_size
+                    minSize=tuple(min_size)
                 )
                 collector.collect()
                 # Draw a rectangle around the faces

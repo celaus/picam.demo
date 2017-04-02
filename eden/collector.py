@@ -27,7 +27,7 @@ class StatsCollector:
             data = json.dumps(self.batch)
             l = len(data.encode("utf8"))
             self.headers.update({"Content-Length": l})
-            req = Request(self.endpoint, data, headers)
+            req = Request(self.endpoint, data, self.headers)
             try:
                 logging.info("Sending %d items", len(self.batch))
                 response = urlopen(req)

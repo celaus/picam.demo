@@ -18,7 +18,7 @@ class PiCameraCapture:
         self.classifier = cv2.CascadeClassifier(
             '/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml')
 
-    def detect(self, collector, scale_factor, min_neighbors, min_size):
+    async def detect(self, collector, scale_factor, min_neighbors, min_size):
         logging.info('Starting detection')
 
         with PiCamera(resolution=(self.width, self.height), framerate=self.framerate) as camera:

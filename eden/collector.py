@@ -15,7 +15,7 @@ class StatsCollector:
         self.batch = []
         self.loop = loop
 
-    def append_send(self, data):
+    async def append_send(self, data):
         ts = data[0]
         readings = data[1]
         meta = data[2]
@@ -40,4 +40,5 @@ class StatsCollector:
             self.batch = []
 
     def collect(self, stats):
-        self.loop.call_soon(lambda s: self.append_send(s), stats)
+        logging.debug("Collecting")
+        self.loop.call_soon(self.append_send, stats)

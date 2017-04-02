@@ -19,7 +19,7 @@ class StatsCollector:
         ts = data[0]
         readings = data[1]
         meta = data[2]
-        stats = {"timestamp": ts, "data": readings, "meta": meta}
+        stats = {"timestamp": ts, "data": readings, "meta": {"name": meta}}
         self.batch.append(stats)
         logging.debug('Appending %s', stats)
 
@@ -40,4 +40,4 @@ class StatsCollector:
             self.batch = []
 
     def collect(self, stats):
-        self.loop.call_soon_threadsafe(asyncio.ensure_future, self.append_send(stats))
+        self.loop.call_soon_threadsafe(self.append_send, stats)

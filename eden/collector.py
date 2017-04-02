@@ -40,5 +40,4 @@ class StatsCollector:
             self.batch = []
 
     def collect(self, stats):
-        logging.debug("Collecting")
-        self.loop.call_soon(self.append_send, stats)
+        self.loop.call_soon(asyncio.ensure_future, self.append_send(stats))

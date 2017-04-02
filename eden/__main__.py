@@ -11,7 +11,7 @@ from threading import Thread
 def capture(config_file_name='config.toml'):
     'Capture and analyze camera input and store the results on a server.'
 
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
     logging.info('Starting eden picam')
 
     with open(config_file_name) as conffile:

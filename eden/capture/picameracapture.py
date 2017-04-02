@@ -3,11 +3,13 @@ from picamera import PiCamera
 import time
 import cv2
 import numpy as np
+from datetime import datetime
 
 # initialize the camera and grab a reference to the raw camera capture
 
 
 CHANNELS = 3
+
 
 class PiCameraCapture:
 
@@ -36,9 +38,11 @@ class PiCameraCapture:
                     minNeighbors=min_neighbors,
                     minSize=tuple(min_size)
                 )
-                collector.collect()
+                data = (int(datetime.utcnow().timestamp() * 1000),
+                        {"faces": len(faces)}, "picam")
+                collector.collect(data)
                 # Draw a rectangle around the faces
-                #for (x, y, w, h) in faces:
+                # for (x, y, w, h) in faces:
                 #    cv2.rectangle(frame, (x, y), (x + w, y + h),
                 #                  (0, 255, 0), 2)
                 #    cv2.imwrite("face-%d.jpg" % d, frame)

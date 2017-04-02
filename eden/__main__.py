@@ -19,7 +19,7 @@ def capture(config_file_name='config.toml'):
     logging.info('Parsed config')
 
     token = get_token(config["server"]["secret"], config[
-                      "agent"]["name"], config["agent"]["role"])
+                      "agent"]["name"], config["agent"]["role"]).decode("utf8")
     loop = asyncio.get_event_loop()
 
     logging.info('Creating collector')

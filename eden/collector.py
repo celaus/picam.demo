@@ -24,8 +24,8 @@ class StatsCollector:
         logging.debug('Appending %s', stats)
 
         if len(self.batch) >= self.batch_size:
-            data = json.dumps(self.batch)
-            l = len(data.encode("utf8"))
+            data = json.dumps(self.batch).encode("utf-8")
+            l = len(data)
             self.headers.update({"Content-Length": l})
             req = Request(self.endpoint, data, self.headers)
             try:

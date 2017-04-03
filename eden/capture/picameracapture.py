@@ -36,12 +36,12 @@ class PiCameraCapture:
                     frames += 1
                     frame = stream
                     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                    # faces = self.classifier.detectMultiScale(
-                    #     gray,
-                    #     scaleFactor=scale_factor,
-                    #     minNeighbors=min_neighbors,
-                    #     minSize=tuple(min_size)
-                    # )
+                    faces = self.classifier.detectMultiScale(
+                        gray,
+                        scaleFactor=scale_factor,
+                        minNeighbors=min_neighbors,
+                        minSize=tuple(min_size)
+                    )
                     # data = (int(datetime.utcnow().timestamp() * 1000),
                     #         {"sensor": "camera", "unit": "faces", "value": float(len(faces))}, "picam")
                     # collector.collect(data)

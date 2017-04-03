@@ -30,12 +30,10 @@ class PiCameraCapture:
         try:
             with PiCamera(resolution=(self.width, self.height), framerate=self.framerate) as camera:
                 stream = np.empty(
-                    (self.height * self.width * CHANNELS), dtype=np.uint8)
+                    (self.height, self.width, CHANNELS), dtype=np.uint8)
                 # capture frames from the camera
                 for raw in camera.capture_continuous(stream, format="bgr", use_video_port=True):
                     frames += 1
-                    #stream = stream.reshape((self.height, self.width, CHANNELS))
-
                     frame = stream
                     # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                     # faces = self.classifier.detectMultiScale(

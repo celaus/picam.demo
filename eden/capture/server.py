@@ -32,7 +32,7 @@ def get_handler(frame_reader):
                         jpeg = jpeg.tobytes()
                         self.wfile.write("--jpgboundary".encode("utf8"))
                         self.send_header('Content-type', 'image/jpeg')
-                        self.send_header('Content-length', str(jpeg.len()))
+                        self.send_header('Content-length', str(len(jpeg)))
                         self.end_headers()
                         self.wfile.write(jpeg)
                         time.sleep(0.05)  # why?

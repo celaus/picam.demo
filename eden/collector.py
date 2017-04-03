@@ -19,7 +19,7 @@ class StatsCollector:
         ts = data[0]
         readings = data[1]
         meta = data[2]
-        stats = {"timestamp": ts, "data": readings, "meta": {"name": meta}}
+        stats = {"timestamp": ts, "data": [readings], "meta": {"name": meta}}
         self.batch.append(stats)
         logging.debug('Appending %s', stats)
 

@@ -29,11 +29,12 @@ def get_handler(frame_reader):
                         if not rc:
                             continue
                         ret, jpeg = cv2.imencode('.jpg', img)
+                        jpeg = jpeg.tobytes()
                         self.wfile.write("--jpgboundary".encode("utf8"))
                         self.send_header('Content-type', 'image/jpeg')
-                        self.send_header('Content-length', str(tmpFile.len))
+                        self.send_header('Content-length', str(jpeg.len()))
                         self.end_headers()
-                        self.wfile.write(jpeg.tobytes())
+                        self.wfile.write(jpeg)
                         time.sleep(0.05)  # why?
                     except KeyboardInterrupt:
                         break

@@ -32,7 +32,7 @@ class StatsCollector:
                 logging.info("Sending %d items", len(self.batch))
                 response = urlopen(req)
                 logging.info('Sent!')
-            except Error as e:
+            except Exception as e:
                 logging.error('Server responded with an error code: ', e.code)
 
             self.batch = []

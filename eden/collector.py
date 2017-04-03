@@ -31,11 +31,11 @@ class StatsCollector:
             try:
                 logging.info("Sending %d items", len(self.batch))
                 response = urlopen(req)
+                self.batch = []
                 logging.info('Sent!')
             except Exception as e:
-                logging.error('Server responded with an error code: ', e.code)
+                logging.error('Server responded with an error code: %s' % e)
 
-            self.batch = []
 
     def collect(self, stats):
         self.loop.call_soon_threadsafe(

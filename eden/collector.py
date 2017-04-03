@@ -9,7 +9,7 @@ class StatsCollector:
 
     def __init__(self, token, endpoint, batch_size, loop):
         self.endpoint = endpoint
-        self.headers = {"Content-Type": "application/json charset=utf-8",
+        self.headers = {"Content-Type": "application/json; charset=utf-8",
                         "Authorization": "Bearer %s" % token}
         self.batch_size = batch_size
         self.batch = []
@@ -24,7 +24,7 @@ class StatsCollector:
         logging.debug('Appending %s', stats)
 
         if len(self.batch) >= self.batch_size:
-            data = json.dumps(self.batch).encode("utf-8")
+            data = json.dumps(self.batch).encode("utf8")
             l = len(data)
             self.headers.update({"Content-Length": l})
             req = Request(self.endpoint, data=data, headers=self.headers)

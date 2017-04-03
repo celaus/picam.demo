@@ -28,7 +28,7 @@ def capture(config_file_name='config.toml'):
     loop = asyncio.get_event_loop()
 
     logging.info('Creating collector')
-    collector = StatsCollector(loop=loop, token=token, batch_size=[
+    collector = StatsCollector(loop=loop, token=token, batch_size=eden_server_conf[
         "batch_size"], endpoint=eden_server_conf["endpoint"])
 
     camcap = PiCameraCapture(**config["camera"])
@@ -38,7 +38,7 @@ def capture(config_file_name='config.toml'):
         mjpeg_server = Thread(target=lambda: run_server(camcap, mjpeg_server_conf[
                               "host"], mjpeg_server_conf["port"]), daemon=True)
         mjpeg_server.start()
-        
+
     logging.info('Starting detector')
     t = Thread(target=lambda: camcap.detect(
         collector, **config["haarcascades"]), daemon=True)

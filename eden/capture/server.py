@@ -42,10 +42,13 @@ def get_handler(frame_reader):
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
-                self.wfile.write('<html><head></head><body>')
-                self.wfile.write('<img src="http://127.0.0.1:8080/cam.mjpg"/>')
-                self.wfile.write('</body></html>')
-                return
+                self.wfile.write("""
+<html>
+    <head></head>
+    <body>
+        <img src="/cam.mjpg"/>
+    </body>
+</html>""")
 
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
@@ -60,4 +63,5 @@ def run_server(capture, host, port):
         server.serve_forever()
     except KeyboardInterrupt:
         pass
-    finally:server.socket.close()
+    finally:
+        server.socket.close()

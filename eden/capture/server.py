@@ -35,7 +35,6 @@ def get_handler(frame_reader):
                         self.send_header('Content-length', str(len(jpeg)))
                         self.end_headers()
                         self.wfile.write(jpeg)
-                        time.sleep(0.05)  # why?
                     except KeyboardInterrupt:
                         break
                 return

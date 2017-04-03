@@ -49,6 +49,7 @@ def get_handler(frame_reader):
         <img src="/cam.mjpg"/>
     </body>
 </html>""")
+    return CamHandler
 
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):

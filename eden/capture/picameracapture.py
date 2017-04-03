@@ -42,7 +42,7 @@ class PiCameraCapture:
                 if len(faces) > 1:
                     logging.debug('Found %d faces', len(faces))
                 data = (int(datetime.utcnow().timestamp() * 1000),
-                        {"sensor": "camera", "unit": "faces", "value": len(faces)}, "picam")
+                        {"sensor": "camera", "unit": "faces", "value": float(len(faces))}, "picam")
                 collector.collect(data)
                 for (x, y, w, h) in faces:
                     cv2.rectangle(frame, (x, y), (x + w, y + h),

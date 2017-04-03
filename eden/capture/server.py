@@ -11,7 +11,7 @@ class FrameReader:
         self.source = source
 
     def read(self):
-        return (int(bool(self.source.last_frame)), source.last_frame)
+        return (int(bool(any(self.source.last_frame))), source.last_frame)
 
 
 def get_handler(frame_reader):

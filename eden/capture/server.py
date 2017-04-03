@@ -28,7 +28,7 @@ def get_handler(frame_reader):
                         rc, img = frame_reader.read()
                         if not rc:
                             continue
-                        ret, jpeg = cv2.imencode('.jpg', image)
+                        ret, jpeg = cv2.imencode('.jpg', img)
                         self.wfile.write("--jpgboundary")
                         self.send_header('Content-type', 'image/jpeg')
                         self.send_header('Content-length', str(tmpFile.len))

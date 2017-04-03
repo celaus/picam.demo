@@ -55,4 +55,4 @@ class PiCameraCapture:
                         break
         finally:
             elapsed = int(datetime.utcnow().timestamp() * 1000) - start
-            logging.info("Ran for %d ms @ %f" % (elapsed, frames / int(elapsed / 1000)))
+            logging.info("Ran for %d ms @ %f fps" % (elapsed, math.floor(frames / int(elapsed / 1000))))

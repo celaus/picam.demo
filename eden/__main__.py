@@ -46,7 +46,13 @@ def capture(config_file_name='config.toml'):
     t.start()
 
     logging.info('Starting event loop')
-    loop.run_forever()
+    try:
+        loop.run_forever()
+    except KeyboardInterrupt:
+        logging.info("Shutting down...")
+    finally:
+        camcap.stop()
+        t.join()
 
 
 def main():

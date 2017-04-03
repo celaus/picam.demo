@@ -35,7 +35,7 @@ class PiCameraCapture:
                 for raw in camera.capture_continuous(stream, format="bgr", use_video_port=True):
                     frames += 1
                     frame = stream
-                    # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                     # faces = self.classifier.detectMultiScale(
                     #     gray,
                     #     scaleFactor=scale_factor,

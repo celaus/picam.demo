@@ -17,6 +17,7 @@ class PiCameraCapture:
         self.height = height
         self.classifier = cv2.CascadeClassifier(
             '/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml')
+        self.last_frame = None
 
     def detect(self, collector, scale_factor, min_neighbors, min_size):
         logging.info('Starting detection')
@@ -43,11 +44,7 @@ class PiCameraCapture:
                 data = (int(datetime.utcnow().timestamp() * 1000),
                         {"faces": len(faces)}, "picam")
                 collector.collect(data)
-
-                # Draw a rectangle around the faces
-                # for (x, y, w, h) in faces:
-                #    cv2.rectangle(frame, (x, y), (x + w, y + h),
-                #                  (0, 255, 0), 2)
-                #    cv2.imwrite("face-%d.jpg" % d, frame)
-
-                #cv2.imwrite("frame.jpg", frame)
+                for (x, y, w, h) in faces:
+                    cv2.rectangle(frame, (x, y), (x + w, y + h),
+                                  (0, 255, 0), 2)
+                self.last_frame = frame

@@ -6,6 +6,7 @@ from auth import get_token
 import asyncio
 import logging
 from threading import Thread
+from capture.server import run_server
 
 
 def capture(config_file_name='config.toml'):
@@ -18,21 +19,32 @@ def capture(config_file_name='config.toml'):
         config = toml.loads(conffile.read())
     logging.info('Parsed config')
 
-    token = get_token(config["server"]["secret"], config[
-                      "agent"]["name"], config["agent"]["role"]).decode("utf8")
+    eden_server_conf = config["eden-server"]
+    agent_conf = config["agent"]
+    mjpeg_server_conf = config["mjpeg-server"]
+
+    token = get_token(eden_server_conf["secret"], agent_conf[
+                      "name"], agent_conf["role"]).decode("utf8")
     loop = asyncio.get_event_loop()
 
     logging.info('Creating collector')
-    collector = StatsCollector(loop=loop, token=token, batch_size=config["server"][
-        "batch_size"], endpoint=config["server"]["endpoint"])
+    collector = StatsCollector(loop=loop, token=token, batch_size=[
+        "batch_size"], endpoint=eden_server_conf["endpoint"])
 
     camcap = PiCameraCapture(**config["camera"])
 
-    logging.info('Starting event loop')
-
+    if mjpeg_server_conf["enable"]:
+        logging.info('Starting MJPEG server')
+        mjpeg_server = Thread(target=lambda: run_server(camcap, mjpeg_server_conf[
+                              "host"], mjpeg_server_conf["port"]), daemon=True)
+        mjpeg_server.start()
+        
+    logging.info('Starting detector')
     t = Thread(target=lambda: camcap.detect(
         collector, **config["haarcascades"]), daemon=True)
     t.start()
+
+    logging.info('Starting event loop')
     loop.run_forever()
 
 

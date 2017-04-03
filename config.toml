@@ -8,10 +8,15 @@ scale_factor = 1.1
 min_neighbors = 3
 min_size = [30, 30]
 
-[server]
-secret = "secret"
+[eden-server]
+secret = "asdf"
 endpoint = 'http://my-eden-server.com:6200/data'
 batch_size = 1000
+
+[mjpeg-server]
+host = "0.0.0.0"
+port = 12345
+enable = false
 
 [agent]
 name = "Raspberry 1" # A device identifier

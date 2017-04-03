@@ -2,7 +2,6 @@ import cv2
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
-import StringIO
 import time
 
 

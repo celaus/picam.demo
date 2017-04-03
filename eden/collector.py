@@ -25,10 +25,9 @@ class StatsCollector:
 
         if len(self.batch) >= self.batch_size:
             data = json.dumps(self.batch).encode("utf-8")
-            logging.info(data)
             l = len(data)
             self.headers.update({"Content-Length": l})
-            req = Request(self.endpoint, data, self.headers)
+            req = Request(self.endpoint, data=data, headers=self.headers)
             try:
                 logging.info("Sending %d items", len(self.batch))
                 response = urlopen(req)

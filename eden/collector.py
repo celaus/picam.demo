@@ -10,7 +10,7 @@ class StatsCollector:
     def __init__(self, token, endpoint, batch_size, loop):
         self.endpoint = endpoint
         self.headers = {"Content-Type": "application/json charset=utf-8",
-                        "Authorization": "Bearer %s" % token.encode("utf-8")}
+                        "Authorization": "Bearer %s" % token}
         self.batch_size = batch_size
         self.batch = []
         self.loop = loop

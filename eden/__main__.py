@@ -24,7 +24,8 @@ def capture(config_file_name='config.toml'):
     mjpeg_server_conf = config["mjpeg-server"]
 
     token = get_token(eden_server_conf["secret"], agent_conf[
-                      "name"], agent_conf["role"]).decode("utf8")
+                      "name"], agent_conf["role"])
+
     loop = asyncio.get_event_loop()
 
     logging.info('Creating collector')

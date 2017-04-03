@@ -5,7 +5,6 @@ import cv2
 import numpy as np
 from datetime import datetime
 import logging
-import math
 
 CHANNELS = 3
 
@@ -56,4 +55,4 @@ class PiCameraCapture:
                         break
         finally:
             elapsed = int(datetime.utcnow().timestamp() * 1000) - start
-            logging.info("Ran for %d ms with %d @ %f fps" % (elapsed, frames, math.floor(frames / int(elapsed / 1000))))
+            logging.info("Ran for %d ms @ %d frames (%.2f fps)" % (elapsed, frames,frames / int(elapsed / 1000)))

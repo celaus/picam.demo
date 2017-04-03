@@ -34,7 +34,7 @@ class PiCameraCapture:
                 # capture frames from the camera
                 for raw in camera.capture_continuous(stream, format="bgr", use_video_port=True):
                     frames += 1
-                    stream = stream.reshape((self.height, self.width, CHANNELS))
+                    #stream = stream.reshape((self.height, self.width, CHANNELS))
 
                     frame = stream
                     # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)

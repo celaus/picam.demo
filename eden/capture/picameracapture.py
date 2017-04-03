@@ -18,10 +18,10 @@ class PiCameraCapture:
         self.classifier = cv2.CascadeClassifier(
             '/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml')
         self.last_frame = None
-        self.stop = False
+        self._stop = False
 
     def stop(self):
-        self.stop = True
+        self._stop = True
 
     def detect(self, collector, scale_factor, min_neighbors, min_size):
         logging.info('Starting detection')
@@ -51,7 +51,7 @@ class PiCameraCapture:
                         cv2.rectangle(frame, (x, y), (x + w, y + h),
                                       (0, 255, 0), 2)
                     self.last_frame = frame
-                    if self.stop:
+                    if self._stop:
                         break
         finally:
             elapsed = int(datetime.utcnow().timestamp() * 1000) - start

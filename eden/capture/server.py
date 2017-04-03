@@ -48,7 +48,7 @@ def get_handler(frame_reader):
     <body>
         <img src="/cam.mjpg"/>
     </body>
-</html>""")
+</html>""".encode("utf-8"))
     return CamHandler
 
 

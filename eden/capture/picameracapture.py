@@ -49,4 +49,4 @@ class PiCameraCapture:
                     self.last_frame = frame
         finally:
             elapsed = int(datetime.utcnow().timestamp() * 1000) - start
-            logging.info("Ran for %d ms @ %f" % (elapsed, frames / int(elapsed / 1000))
+            logging.info("Ran for %d ms @ %f" % (elapsed, frames / int(elapsed / 1000)))

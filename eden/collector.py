@@ -25,6 +25,7 @@ class StatsCollector:
 
         if len(self.batch) >= self.batch_size:
             data = json.dumps(self.batch).encode("utf-8")
+            logging.info(data)
             l = len(data)
             self.headers.update({"Content-Length": l})
             req = Request(self.endpoint, data, self.headers)
@@ -32,10 +33,8 @@ class StatsCollector:
                 logging.info("Sending %d items", len(self.batch))
                 response = urlopen(req)
                 logging.info('Sent!')
-            except HTTPError as e:
+            except Error as e:
                 logging.error('Server responded with an error code: ', e.code)
-            except URLError as e:
-                logging.error('URL error: ', e.reason)
 
             self.batch = []
 

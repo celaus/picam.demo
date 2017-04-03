@@ -56,6 +56,7 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
 
 
 def run_server(capture, host, port):
+    server = None
     try:
         frame_reader = FrameReader(capture)
         server = ThreadedHTTPServer(
@@ -64,4 +65,5 @@ def run_server(capture, host, port):
     except KeyboardInterrupt:
         pass
     finally:
-        server.socket.close()
+        if server:
+            server.socket.close()

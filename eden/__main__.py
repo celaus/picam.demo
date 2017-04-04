@@ -1,12 +1,12 @@
 import argh
 from eden.collector import StatsCollector
 from eden.picameracapture import PiCameraCapture
+from eden.auth import get_token
+from eden.server import run_server
 import toml
-from auth import get_token
 import asyncio
 import logging
 from threading import Thread
-from eden.server import run_server
 
 
 def capture(config_file_name='config.toml'):

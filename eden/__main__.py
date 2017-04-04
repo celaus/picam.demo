@@ -1,18 +1,19 @@
 import argh
-from collector import StatsCollector
-from capture.picameracapture import PiCameraCapture
+from eden.collector import StatsCollector
+from eden.capture.picameracapture import PiCameraCapture
 import toml
 from auth import get_token
 import asyncio
 import logging
 from threading import Thread
-from capture.server import run_server
+from eden.capture.server import run_server
 
 
 def capture(config_file_name='config.toml'):
     'Capture and analyze camera input and store the results on a server.'
 
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(name)s %(message)s')
+    logging.basicConfig(
+        level=logging.INFO, format='%(asctime)s %(levelname)s:%(name)s %(message)s')
     logging.info('Starting eden picam')
 
     with open(config_file_name) as conffile:

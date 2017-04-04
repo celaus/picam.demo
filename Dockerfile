@@ -6,4 +6,4 @@ RUN pacman -Sy --noconfirm git opencv python3 python-pip python3-numpy  && pacma
 RUN mkdir /eden && git clone https://github.com/celaus/picam.demo.git && cd /eden && python setup.py install
 ENV LD_LIBRARY_PATH /eden
 WORKDIR /eden
-CMD ["bash"]
+CMD ["capture"]

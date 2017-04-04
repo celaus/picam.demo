@@ -42,13 +42,13 @@ class PiCameraCapture:
                         minNeighbors=min_neighbors,
                         minSize=tuple(min_size)
                     )
-                    # data = (int(datetime.utcnow().timestamp() * 1000),
-                    #         {"sensor": "camera", "unit": "faces", "value": float(len(faces))}, "picam")
-                    # collector.collect(data)
-                    # for (x, y, w, h) in faces:
-                    #     cv2.rectangle(frame, (x, y), (x + w, y + h),
-                    #                   (0, 255, 0), 2)
-                    # self.last_frame = frame
+                    data = (int(datetime.utcnow().timestamp() * 1000),
+                            {"sensor": "camera", "unit": "faces", "value": float(len(faces))}, "picam")
+                    collector.collect(data)
+                    for (x, y, w, h) in faces:
+                        cv2.rectangle(frame, (x, y), (x + w, y + h),
+                                      (0, 255, 0), 2)
+                    self.last_frame = frame
                     if self._stop:
                         break
         finally:

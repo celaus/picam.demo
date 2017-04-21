@@ -2,6 +2,7 @@
 framerate = 32
 width = 1088
 height = 720
+mark_faces = false
 
 [haarcascades]
 scale_factor = 1.1

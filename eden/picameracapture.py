@@ -11,7 +11,7 @@ CHANNELS = 3
 
 class PiCameraCapture:
 
-    def __init__(self, framerate, width, height, *args, **kwargs):
+    def __init__(self, framerate, width, height, mark_faces, *args, **kwargs):
         self.framerate = framerate
         self.width = width
         self.height = height
@@ -19,6 +19,7 @@ class PiCameraCapture:
             '/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml')
         self.last_frame = None
         self._stop = False
+        self.mark_faces = mark_faces
 
     def stop(self):
         self._stop = True
@@ -42,16 +43,27 @@ class PiCameraCapture:
                         minNeighbors=min_neighbors,
                         minSize=tuple(min_size)
                     )
+                    readings = [
+                        {"sensor": "frontal_faces", "unit": "faces",
+                            "value": float(len(faces))},
+                        {"sensor": "classifier", "unit": "vector", "value": list(faces))},
+                        {"sensor": "image", "unit": "pixels",
+                            "value": [self.width, self.height]},
+
+                    ]
                     data = (int(datetime.utcnow().timestamp() * 1000),
-                            {"sensor": "camera", "unit": "faces", "value": float(len(faces))}, "picam")
+                            , "picam")
                     collector.collect(data)
-                    for (x, y, w, h) in faces:
-                        cv2.rectangle(frame, (x, y), (x + w, y + h),
-                                      (0, 255, 0), 2)
-                    self.last_frame = frame
+                    if self.mark_faces:
+                        for (x, y, w, h) in faces:
+                            cv2.rectangle(frame, (x, y), (x + w, y + h),
+                                          (0, 255, 0), 2)
+                    self.last_frame=frame
+
                     if self._stop:
                         break
         finally:
-            elapsed = int(datetime.utcnow().timestamp() * 1000) - start
-            if elapsed > 0:
-                logging.info("Ran for %d ms @ %d frames (%.2f fps)" % (elapsed, frames,frames / int(elapsed / 1000)))
+            elapsed=int(datetime.utcnow().timestamp() * 1000) - start
+            if elapsed >= 1000:
+                logging.info("Ran for %d ms @ %d frames (%.2f fps)" %
+                             (elapsed, frames, frames / int(elapsed / 1000)))

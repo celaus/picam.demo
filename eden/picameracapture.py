@@ -47,12 +47,13 @@ class PiCameraCapture:
                         {"sensor": "frontal_faces", "unit": "faces",
                             "value": float(len(faces))},
                         {"sensor": "classifier", "unit": "vector", "value": list(map(
-                            lambda f: {"x": f[0], "y": f[1], "w": f[2], "h": f[3]}, faces))},
+                            lambda f: {"x": int(f[0]), "y": int(f[1]), "w": int(f[2]), "h": int(f[3])}, faces))},
                         {"sensor": "image", "unit": "pixels",
                             "value": [self.width, self.height]},
 
                     ]
-                    data = (int(datetime.utcnow().timestamp() * 1000), readings, "picam")
+                    data = (int(datetime.utcnow().timestamp() * 1000),
+                            readings, "picam")
                     collector.collect(data)
                     if self.mark_faces:
                         for (x, y, w, h) in faces:

@@ -52,8 +52,7 @@ class PiCameraCapture:
                             "value": [self.width, self.height]},
 
                     ]
-                    data = (int(datetime.utcnow().timestamp() * 1000),
-                            , "picam")
+                    data = (int(datetime.utcnow().timestamp() * 1000), readings, "picam")
                     collector.collect(data)
                     if self.mark_faces:
                         for (x, y, w, h) in faces:

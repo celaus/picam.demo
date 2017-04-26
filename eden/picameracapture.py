@@ -46,7 +46,8 @@ class PiCameraCapture:
                     readings = [
                         {"sensor": "frontal_faces", "unit": "faces",
                             "value": float(len(faces))},
-                        {"sensor": "classifier", "unit": "vector", "value": list(faces))},
+                        {"sensor": "classifier", "unit": "vector", "value": list(map(
+                            lambda f: {"x": f[0], "y": f[1], "w": f[2], "h": f[3]}, faces))},
                         {"sensor": "image", "unit": "pixels",
                             "value": [self.width, self.height]},
 
@@ -58,12 +59,12 @@ class PiCameraCapture:
                         for (x, y, w, h) in faces:
                             cv2.rectangle(frame, (x, y), (x + w, y + h),
                                           (0, 255, 0), 2)
-                    self.last_frame=frame
+                    self.last_frame = frame
 
                     if self._stop:
                         break
         finally:
-            elapsed=int(datetime.utcnow().timestamp() * 1000) - start
+            elapsed = int(datetime.utcnow().timestamp() * 1000) - start
             if elapsed >= 1000:
                 logging.info("Ran for %d ms @ %d frames (%.2f fps)" %
                              (elapsed, frames, frames / int(elapsed / 1000)))

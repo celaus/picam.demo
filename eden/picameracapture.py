@@ -44,11 +44,11 @@ class PiCameraCapture:
                         minSize=tuple(min_size)
                     )
                     readings = [
-                        {"Simple": {"sensor": "frontal_faces", "unit": "faces",
+                        {"Simple": {"name": "frontal_faces", "unit": "faces",
                             "value": float(len(faces))}},
-                        {"Geometry": {"sensor": "classifier", "unit": "vector", "value": {"Rectangle": list(map(
+                        {"Geometry": {"name": "classifier", "unit": "vector", "value": {"Rectangle": list(map(
                             lambda f: {"x": int(f[0]), "y": int(f[1]), "w": int(f[2]), "h": int(f[3])}, faces))}}},
-                        {"Tuple": {"sensor": "image", "unit": "pixels",
+                        {"Tuple": {"name": "image", "unit": "pixels",
                             "value": [self.width, self.height]}},
 
                     ]

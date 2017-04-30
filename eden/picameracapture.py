@@ -46,8 +46,8 @@ class PiCameraCapture:
                     readings = [
                         {"Simple": {"name": "frontal_faces", "unit": "faces",
                             "value": float(len(faces))}},
-                        {"Geometry": {"name": "classifier", "unit": "vector", "value": {"Rectangle": list(map(
-                            lambda f: {"x": int(f[0]), "y": int(f[1]), "w": int(f[2]), "h": int(f[3])}, faces))}}},
+                        {"Geometry": {"name": "classifier", "unit": "vector", "value":  list(map(
+                            lambda f: {"Rectangle":{"x": int(f[0]), "y": int(f[1]), "w": int(f[2]), "h": int(f[3])}}, faces))}},
                         {"Tuple": {"name": "image", "unit": "pixels",
                             "value": [self.width, self.height]}},
 
